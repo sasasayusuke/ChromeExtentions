@@ -4,12 +4,16 @@ document.getElementById('extract').addEventListener('click', function () {
             target: { tabId: tabs[0].id },
             function: extractLinks
         }, (injectionResults) => {
-            let links = injectionResults[0].result;
-            let container = document.getElementById('links');
+            const links = injectionResults[0].result;
+            const container = document.getElementById('links');
             container.innerHTML = '';
             links.forEach(link => {
-                let div = document.createElement('div');
-                div.textContent = link;
+                const a = document.createElement('a');
+                a.textContent = link;
+                a.href = link;
+                a.className = 'link'; // CSSクラスを追加
+                const div = document.createElement('div');
+                div.appendChild(a);
                 container.appendChild(div);
             });
         });
@@ -17,6 +21,6 @@ document.getElementById('extract').addEventListener('click', function () {
 });
 
 function extractLinks() {
-    let links = Array.from(document.querySelectorAll('a')).map(a => a.href);
+    const links = Array.from(document.querySelectorAll('a')).map(a => a.href);
     return links;
 }

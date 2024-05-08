@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "CSV変換くん",
-  "version": "1.1.20",
-  "description": "Webページ上のテキストをいい感じにCSV変換します。",
+  "version": "1.1.23",
+  "description": "https://nakeruhanashi.com の Webページ上のテキストをいい感じにCSV変換します。",
   "permissions": [
     "activeTab",
     "scripting"

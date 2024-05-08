@@ -1,0 +1,11 @@
+.link {
+    color: blue;
+    /* リンクの色を青に設定 */
+    text-decoration: none;
+    /* 下線を非表示に設定 */
+}
+
+.link:hover {
+    text-decoration: underline;
+    /* ホバー時に下線を表示 */
+}
