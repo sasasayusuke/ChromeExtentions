@@ -1,0 +1,55 @@
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    padding: 20px 40px; /* 左右のパディングを増やして全体を広げる */
+    background-color: #f4f4f4; /* ソフトなグレーバックグラウンド */
+    color: #333; /* テキストカラー */
+    min-width: 960px; /* 体の最小幅を設定 */
+}
+
+h1 {
+    text-align: center;
+    color: #2a2a2a; /* ヘッダーカラー */
+}
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+label {
+    font-weight: 500; /* ラベルフォントのウェイト */
+    margin: 10px 0;
+    display: block;
+}
+input[type="radio"] {
+    margin-right: 10px;
+}
+#otherInput {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+#otherInput:focus {
+    border-color: #0056b3; /* フォーカス時のボーダーカラー */
+}
+button {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #0056b3;
+}

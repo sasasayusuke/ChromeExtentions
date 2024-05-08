@@ -1,20 +1,20 @@
 // ロード時のイベント
 document.addEventListener('DOMContentLoaded', function () {
     // 変数の定義
-    const radioOptions = [
+    const characters = [
         { id: 'typeA', value: '【ほのぼの】男1', label: '【ほのぼの】男1', checked: true },
         { id: 'typeB', value: '【ほのぼの】女1', label: '【ほのぼの】女1', checked: false },
         { id: 'typeC', value: 'other', label: 'その他', checked: false }
     ];
 
     // ラジオボタンとラベルの生成
-    radioOptions.forEach(option => {
+    characters.forEach(option => {
         let container = document.createElement('div');
 
         let radioInput = document.createElement('input');
         radioInput.type = 'radio';
         radioInput.id = option.id;
-        radioInput.name = 'fileType';
+        radioInput.name = 'characterType';
         radioInput.value = option.value;
         radioInput.checked = option.checked;
 
@@ -24,8 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.appendChild(radioInput);
         container.appendChild(label);
-        document.getElementById('fileTypeForm').appendChild(container);
+        document.getElementById('characterForm').appendChild(container);
     });
+
 });
 
 
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('csvDownload').addEventListener('click', async function() {
     try {
         console.log('click');
-        let character = document.querySelector('input[type="radio"][name="fileType"]:checked').value;
+        let character = document.querySelector('input[type="radio"][name="characterType"]:checked').value;
         if (character === 'other') {
             character = document.getElementById('otherInput').value;
         }
