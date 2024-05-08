@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "CSV変換くん",
+  "version": "1.1.14",
+  "description": "Webページ上のテキストをいい感じにCSV変換します。",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/タツノオトシゴのアイコン素材16.png",
+      "48": "images/タツノオトシゴのアイコン素材48.png",
+      "128": "images/タツノオトシゴのアイコン素材128.png"
+    }
+  },
+  "icons": {
+    "16": "images/タツノオトシゴのアイコン素材16.png",
+    "48": "images/タツノオトシゴのアイコン素材48.png",
+    "128": "images/タツノオトシゴのアイコン素材128.png"
+  },
+  "host_permissions": [
+    "https://nakeruhanashi.com/*"
+  ]
+}

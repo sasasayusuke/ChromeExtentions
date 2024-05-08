@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Link抽出くん",
+  "version": "1.1.2",
+  "description": "Webページ上のリンクを集めます。",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/リスのアイコンですたい16.png",
+      "48": "images/リスのアイコンですたい48.png",
+      "128": "images/リスのアイコンですたい128.png"
+    }
+  },
+  "icons": {
+    "16": "images/リスのアイコンですたい16.png",
+    "48": "images/リスのアイコンですたい48.png",
+    "128": "images/リスのアイコンですたい128.png"
+  }
+}
