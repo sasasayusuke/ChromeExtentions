@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>csv変換君</title>
+    <title>CSV変換君</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label, button {
+            margin-top: 10px;
+        }
+        #otherInput {
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <form>
-        <input type="radio" id="typeA" name="fileType" value="ほのぼの】男1" checked>
-        <label for="typeA">【ほのぼの】男1</label><br>
-
-        <input type="radio" id="typeB" name="fileType" value="【ほのぼの】女1">
-        <label for="typeB">【ほのぼの】女1</label><br>
-
-        <input type="radio" id="typeC" name="fileType" value="other">
-        <label for="typeC">その他</label><br>
-        <input type="text" id="otherInput" placeholder="詳細を入力" disabled>
+    <h1>CSVファイル形式選択</h1>
+    <form id="fileTypeForm">
+        <!-- ここにラジオボタンが動的に挿入される -->
     </form>
     <button id="csvDownload">CSVダウンロード</button>
     <script src="popup.js"></script>
