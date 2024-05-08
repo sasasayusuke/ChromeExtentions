@@ -66,14 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     throw new Error('キャラクター名が入力されていません。');
                 }
 
-                let text = await getTextFromActiveTab();
+                let text = await getContentsFromActiveTab(() => document.getElementById("article").innerText);
 
                 if (!text) {
                     throw new Error('記事要素がページに存在しません。');
                 }
                 let lines = text.split('\n');
-                let csvContent = lines.map(line => line.trim()).filter(line => line).map(line => `${character},${line}`).join('\n');
-                downloadCSV(csvContent, `${document.getElementsByTagName("title")[0].innerText}.csv`);
+                let csvContent = lines.map(line => line.trim()).filter(line => line).map(line => `${character},${line}`).join('\n')
+                let title = await getContentsFromActiveTab(() => document.getElementsByTagName("title")[0].innerText);
+                downloadCSV(csvContent, `${title}.csv`);
                 console.log('downloaded');
 
             } catch (error) {
@@ -84,16 +85,17 @@ document.addEventListener('DOMContentLoaded', function () {
         alert(`load時エラーが発生しました:${error}`);
     }
 });
-// 現在のアクティブなタブからテキストを非同期で取得する関数
-async function getTextFromActiveTab() {
+
+// 現在のアクティブなタブから任意のテキストを非同期で取得する関数
+async function getContentsFromActiveTab(func) {
     return new Promise((resolve, reject) => {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             chrome.scripting.executeScript({
                 target: { tabId: tabs[0].id },
-                func: () => document.getElementById("article").innerText
+                func: func  // 関数を直接引数として使用
             }, (injectionResults) => {
                 if (chrome.runtime.lastError || !injectionResults || !injectionResults[0]) {
-                    reject(new Error('テキストの取得に失敗しました'));
+                    reject(new Error('テキストの取得に失敗しました: ' + chrome.runtime.lastError.message));
                 } else {
                     resolve(injectionResults[0].result);
                 }
@@ -101,6 +103,7 @@ async function getTextFromActiveTab() {
         });
     });
 }
+
 
 // CSVファイルをダウンロードする関数（CSVファイルのタイプ指定の間違いを修正）
 function downloadCSV(content, fileName) {
