@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "vue": "^3.4.27",
+    "vuetify": "^3.6.5"
+  },
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.4.27",
+    "vue-loader": "^15.11.1",
+    "vue-template-compiler": "^2.7.16",
+    "vuetify-loader": "^2.0.0-alpha.9",
+    "webpack-cli": "^5.1.4"
+  }
+}

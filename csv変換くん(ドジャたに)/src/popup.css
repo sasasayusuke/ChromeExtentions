@@ -1,0 +1,16 @@
+body {
+    background-color: #fafafa; /* より明るい灰色に変更 */
+}
+
+/* Vuetify コンポーネントにカスタムクラスを適用する例 */
+.custom-form {
+    max-width: 800px; /* フォームの最大幅を設定 */
+    margin: auto; /* 自動的に中央揃え */
+    padding: 20px; /* パディングを追加 */
+    background-color: #ffffff; /* 背景色を白に設定 */
+    box-shadow: 0px 0px 10px #cccccc; /* 影を追加 */
+}
+
+.custom-button {
+    background-color: #005CAF; /* ボタンの背景色をカスタムカラーに */
+}
