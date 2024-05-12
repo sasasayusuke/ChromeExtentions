@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Sample React Extension",
+  "version": "1.0",
+  "description": "A simple React-based Chrome extension",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icons/桃のアイコン素材16.png",
+      "48": "icons/桃のアイコン素材48.png",
+      "128": "icons/桃のアイコン素材128.png"
+    }
+  },
+  "icons": {
+  "16": "icons/桃のアイコン素材16.png",
+  "48": "icons/桃のアイコン素材48.png",
+  "128": "icons/桃のアイコン素材128.png"
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+
+}
