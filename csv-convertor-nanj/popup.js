@@ -3,75 +3,49 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
         const dictionary = [
             { original: '大谷', converted: 'おおたに' },
+            { original: '俺等', converted: 'おれら' },
+            { original: 'わい等', converted: 'わいら' },
+            { original: 'ワイ等', converted: 'わいら' },
         ];
 
-        characters.forEach(option => {
-            let container = document.createElement('div');
-            container.className = 'radio-group' + (option.isOther ? ' flex-row' : ''); // Flexboxスタイルを適用
-
-            let radioInput = document.createElement('input');
-            radioInput.type = 'radio';
-            radioInput.id = option.id;
-            radioInput.name = 'characterType';
-            radioInput.value = option.value;
-            radioInput.checked = option.checked;
-
-            let label = document.createElement('label');
-            label.htmlFor = option.id;
-            label.textContent = option.label;
-
-            container.appendChild(radioInput);
-            container.appendChild(label);
-
-            if (option.isOther) {
-                let otherInput = document.createElement('input');
-                otherInput.type = 'text';
-                otherInput.id = 'otherInput';
-                otherInput.placeholder = 'キャラクター名を入力';
-                otherInput.disabled = true; // 最初は無効化
-                container.appendChild(otherInput);
-            }
-
-            document.getElementById('characterForm').appendChild(container);
-        });
-
-
-        // ラジオボタンが変更されたときのイベント
-        document.querySelectorAll('input[type="radio"][name="characterType"]').forEach(function (radio) {
-            radio.addEventListener('change', function () {
-                try {
-                    console.log('change')
-                    // 「その他」が選択された場合、テキスト入力を活性化
-                    document.getElementById('otherInput').disabled = radio.value !== 'other' || !radio.checked
-
-                    console.log('changed')
-
-                } catch (error) {
-                    alert(`change時エラーが発生しました:${error}`);
-                }
-            })
-        })
+        const headers = ["first", "second", "third"];
 
         // ダウンロードボタンがクリックされたときのイベント
-        document.getElementById('csvDownload').addEventListener('click', async function() {
+        document.getElementById('csvDownload').addEventListener('click', async function () {
             try {
                 console.log('click');
-                let character = document.querySelector('input[type="radio"][name="characterType"]:checked').value;
-                if (character === 'other') {
-                    character = document.getElementById('otherInput').value;
-                }
-                if (!character) {
-                    throw new Error('キャラクター名が入力されていません。');
-                }
+                let lines = await getContentsFromActiveTab(() => Array.from(document.getElementsByClassName("t_b")).map(element => element.previousElementSibling.innerText + "\n" + element.innerText));
 
-                let text = await getContentsFromActiveTab(() => document.getElementById("article").innerText);
-
-                if (!text) {
+                if (!lines) {
                     throw new Error('記事要素がページに存在しません。');
                 }
-                let lines = text.split('\n');
-                let csvContent = lines.map(line => line.trim()).filter(line => line).map(line => `${character},${line}`).join('\n')
-                let title = await getContentsFromActiveTab(() => document.getElementsByTagName("title")[0].innerText);
+
+
+                // ヘッダーとデフォルトの行を設定
+                let rows = [headers];  // ヘッダーを先頭に追加
+                let title = await getContentsFromActiveTab(() => document.getElementsByTagName("title")[0].innerText)
+                // URLを新しい行に設定して追加
+                let urlRow = [title, window.location.href]
+                rows.push(urlRow);
+
+                // 各行にデータを均等に配置する処理
+                for (let i = 0; i < lines.length; i++) {
+                    let columnIndex = i % headers.length;
+                    if (columnIndex === 0) {
+                        rows.push([]);
+                    }
+                    rows[rows.length - 1][columnIndex] = lines[i];
+                }
+
+                // CSV形式の文字列に変換する関数
+                function toCSVLine(arr) {
+                    return arr.map(text => `"${text.replace(/"/g, '""')}"`).join(',');
+                }
+
+                // 改行を含むデータも正しく扱えるように、各行を上記の関数で処理
+                let csvContent = rows.map(toCSVLine).join('\n');
+
+                // ページのタイトルをファイル名として使用
                 downloadCSV(csvContent, `${title}.csv`);
                 console.log('downloaded');
 

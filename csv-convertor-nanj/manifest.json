@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "CSV変換くん",
-  "version": "1.1.24",
-  "description": "https://nakeruhanashi.com の Webページ上のテキストをいい感じにCSV変換します。",
+  "version": "1.1.27",
+  "description": "Webページ上のテキストをいい感じにCSV変換します。",
   "permissions": [
     "activeTab",
     "scripting"
@@ -20,7 +20,5 @@
     "48": "icons/バットアイコン48.png",
     "128": "icons/バットアイコン128.png"
   },
-  "host_permissions": [
-    "https://nakeruhanashi.com/*"
-  ]
+  "host_permissions": []
 }
