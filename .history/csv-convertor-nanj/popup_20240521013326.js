@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         selected.push(selectedCharacter)
                         replaceText(text).split('\n').forEach(line => {
                             firstFlg = false;
-                            csvForVoiceVox += `${selectedCharacter}, ${line}` + '\n'
+                            csvForVoiceVox += `${selectedCharacter}, ${line}`
                         })
 
                     }

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Canva Csv downloaded');
 
                 let firstFlg = true
-                let csvForVoiceVox = ""
+                let convertedLines = []
 
                 // 2行目以降のcsv各行を処理
                 for (let i = 2; i < rows.length; i++) {
@@ -48,11 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         selected.push(selectedCharacter)
                         replaceText(text).split('\n').forEach(line => {
                             firstFlg = false;
-                            csvForVoiceVox += `${selectedCharacter}, ${line}` + '\n'
+                            convertedLines.push([selectedCharacter, line])
                         })
 
                     }
                 }
+                let csvForVoiceVox = convertedLines.map(convertArrayToCSV).join('\n');
 
                 // ページのタイトルをファイル名として使用
                 downloadCSV(csvForVoiceVox, `VoiceVox_${title}.txt`);
