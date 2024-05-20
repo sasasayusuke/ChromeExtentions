@@ -46,9 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     for (let text of rows[i]) {
                         let selectedCharacter = getRandomCharacter(selected, firstFlg);
                         selected.push(selectedCharacter)
-                        replaceText(text).split('\n').forEach(line => {
+                        let replacedText = replaceText(text);
+                        replacedText.split('\n').forEach(line => {
                             firstFlg = false;
-                            convertedLines.push([selectedCharacter, line])
+                            convertedLines.push([selectedCharacter, replacedText])
                         })
 
                     }

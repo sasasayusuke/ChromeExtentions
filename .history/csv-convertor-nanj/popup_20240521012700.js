@@ -44,13 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 2; i < rows.length; i++) {
                     let selected = []
                     for (let text of rows[i]) {
-                        let selectedCharacter = getRandomCharacter(selected, firstFlg);
-                        selected.push(selectedCharacter)
-                        replaceText(text).split('\n').forEach(line => {
-                            firstFlg = false;
-                            convertedLines.push([selectedCharacter, line])
+                        text.split('\n').forEach(line => {
+                          line
                         })
-
+                        let selectedCharacter = getRandomCharacter(selected, firstFlg);
+                        let replacedText = replaceText(text);
+                        selected.push(selectedCharacter)
+                        firstFlg = false;
+                        convertedLines.push([selectedCharacter, replacedText])
                     }
                 }
                 let csvForVoiceVox = convertedLines.map(convertArrayToCSV).join('\n');
