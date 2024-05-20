@@ -116,7 +116,6 @@ function getRandomCharacter(excludeNames = [], firstChoice = false) {
 function replaceText(text) {
     const dictionary = [
         { original: '大谷', converted: 'おおたに' },
-        { original: '一平', converted: 'いっぺい' },
         { original: '俺等', converted: 'おれら' },
         { original: 'わい等', converted: 'わいら' },
         { original: 'ワイ等', converted: 'わいら' },

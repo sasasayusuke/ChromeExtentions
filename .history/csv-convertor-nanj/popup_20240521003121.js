@@ -2,6 +2,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     try {
 
+        const dictionary = [
+            { original: '大谷', converted: 'おおたに' },
+            { original: '俺等', converted: 'おれら' },
+            { original: 'わい等', converted: 'わいら' },
+            { original: 'ワイ等', converted: 'わいら' },
+        ];
+
         const headers = ["first", "second", "third"];
 
         // ダウンロードボタンがクリックされたときのイベント
@@ -31,31 +38,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // 改行を含むデータも正しく扱えるように、各行を上記の関数で処理
-                let csvForCanva = rows.map(convertArrayToCSV).join('\n');
+                let csvLines = rows.map(convertArrayToCSV);
+                let csvForCanva = csvLines.join('\n');
 
                 // ページのタイトルをファイル名として使用
-                downloadCSV(csvForCanva, `Canva_${title}.csv`);
+                downloadCSV(csvForCanva, `${title}_Canva.csv`);
                 console.log('Canva Csv downloaded');
 
-                let firstFlg = true
-                let convertedLines = []
-
                 // 2行目以降のcsv各行を処理
-                for (let i = 2; i < rows.length; i++) {
+                let csvForVoiceVox = []
+                csvLines.slice(1).forEach((line) => {
                     let selected = []
-                    for (let text of rows[i]) {
-                        let selectedCharacter = getRandomCharacter(selected, firstFlg);
-                        let replacedText = replaceText(text);
-                        selected.push(selectedCharacter)
-                        firstFlg = false;
-                        convertedLines.push([selectedCharacter, replacedText])
-                    }
-                }
-                let csvForVoiceVox = convertedLines.map(convertArrayToCSV).join('\n');
-
-                // ページのタイトルをファイル名として使用
-                downloadCSV(csvForVoiceVox, `VoiceVox_${title}.csv`);
-                console.log('VoiceVox Csv downloaded');
+                    line.forEach((text) => {
+                        `${get},${line}`
+                    })
+                    const parts = line.split(",");
+                    parts.forEach((part, index) => {
+                    });
+                });
 
             } catch (error) {
                 alert(`click時エラーが発生しました:${error}`);
@@ -110,21 +110,4 @@ function getRandomCharacter(excludeNames = [], firstChoice = false) {
         }
         randomValue -= character.priority;
     }
-}
-
-// 辞書を使ってテキストを置換する関数
-function replaceText(text) {
-    const dictionary = [
-        { original: '大谷', converted: 'おおたに' },
-        { original: '一平', converted: 'いっぺい' },
-        { original: '俺等', converted: 'おれら' },
-        { original: 'わい等', converted: 'わいら' },
-        { original: 'ワイ等', converted: 'わいら' },
-    ];
-
-    dictionary.forEach(entry => {
-        let regex = new RegExp(entry.original, 'g');
-        text = text.replace(regex, entry.converted);
-    });
-    return text;
 }

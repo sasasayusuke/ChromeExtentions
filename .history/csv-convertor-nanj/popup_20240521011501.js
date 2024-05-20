@@ -44,11 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 2; i < rows.length; i++) {
                     let selected = []
                     for (let text of rows[i]) {
-                        let selectedCharacter = getRandomCharacter(selected, firstFlg);
-                        let replacedText = replaceText(text);
-                        selected.push(selectedCharacter)
+                        let selectCharacter = getRandomCharacter(selected, firstFlg);
+                        selected.push(selectCharacter)
                         firstFlg = false;
-                        convertedLines.push([selectedCharacter, replacedText])
+                        convertedLines.push([selectCharacter, text])
                     }
                 }
                 let csvForVoiceVox = convertedLines.map(convertArrayToCSV).join('\n');
@@ -111,12 +110,10 @@ function getRandomCharacter(excludeNames = [], firstChoice = false) {
         randomValue -= character.priority;
     }
 }
-
 // 辞書を使ってテキストを置換する関数
 function replaceText(text) {
     const dictionary = [
         { original: '大谷', converted: 'おおたに' },
-        { original: '一平', converted: 'いっぺい' },
         { original: '俺等', converted: 'おれら' },
         { original: 'わい等', converted: 'わいら' },
         { original: 'ワイ等', converted: 'わいら' },

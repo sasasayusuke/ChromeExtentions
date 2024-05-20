@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         let replacedText = replaceText(text);
                         selected.push(selectedCharacter)
                         firstFlg = false;
-                        convertedLines.push([selectedCharacter, replacedText])
+                        convertedLines.push([selectedCharacter, text])
                     }
                 }
                 let csvForVoiceVox = convertedLines.map(convertArrayToCSV).join('\n');
@@ -116,7 +116,6 @@ function getRandomCharacter(excludeNames = [], firstChoice = false) {
 function replaceText(text) {
     const dictionary = [
         { original: '大谷', converted: 'おおたに' },
-        { original: '一平', converted: 'いっぺい' },
         { original: '俺等', converted: 'おれら' },
         { original: 'わい等', converted: 'わいら' },
         { original: 'ワイ等', converted: 'わいら' },
