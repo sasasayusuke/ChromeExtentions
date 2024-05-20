@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // 改行を含むデータも正しく扱えるように、各行を上記の関数で処理
-                let csvContent = rows.map(convertArrayToCSV).join('\n');
+                let csvContent = rows.map(toCSVLine).join('\n');
 
                 // ページのタイトルをファイル名として使用
                 downloadCSV(csvContent, `${title}.csv`);

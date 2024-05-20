@@ -1,18 +1,6 @@
 // ロード時のイベント
 document.addEventListener('DOMContentLoaded', function () {
     try {
-        const characters = [
-            { name: '四国めたん', priority: 80, firstChoice: true },
-            { name: 'ずんだもん', priority: 70 },
-            { name: '春日部つむぎ', priority: 60 },
-            { name: '玄野武宏', priority: 50 },
-            { name: '白上虎太郎', priority: 50 },
-            { name: '青山龍星', priority: 40 },
-            { name: '剣崎雌雄', priority: 40 },
-            { name: '女声1', priority: 30 },
-            { name: '女声2', priority: 30 },
-        ];
-
         const dictionary = [
             { original: '大谷', converted: 'おおたに' },
             { original: '俺等', converted: 'おれら' },
@@ -26,11 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('csvDownload').addEventListener('click', async function () {
             try {
                 console.log('click');
-                let lines = await getContentsFromActiveTab(() => Array.from(document.getElementsByClassName("t_b")).map(element => element.innerText));
+                let lines = await getContentsFromActiveTab(() => Array.from(document.getElementsByClassName("t_b")).map(element => element.previousElementSibling.innerText + "\n" + element.innerText));
 
                 if (!lines) {
                     throw new Error('記事要素がページに存在しません。');
                 }
+
 
                 // ヘッダーとデフォルトの行を設定
                 let rows = [headers];  // ヘッダーを先頭に追加
@@ -48,8 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     rows[rows.length - 1][columnIndex] = lines[i];
                 }
 
+                // CSV形式の文字列に変換する関数
+                function toCSVLine(arr) {
+                    return arr.map(text => `"${text.replace(/"/g, '""')}"`).join(',');
+                }
+
                 // 改行を含むデータも正しく扱えるように、各行を上記の関数で処理
-                let csvContent = rows.map(convertArrayToCSV).join('\n');
+                let csvContent = rows.map(toCSVLine).join('\n');
 
                 // ページのタイトルをファイル名として使用
                 downloadCSV(csvContent, `${title}.csv`);

@@ -17,6 +17,11 @@ async function getContentsFromActiveTab(func) {
     });
 }
 
+// CSV形式の文字列に変換する関数
+function convertArrayToCSV(arr) {
+    return arr.map(text => `"${text.replace(/"/g, '""')}"`).join(',');
+}
+
 
 // CSVファイルをダウンロードする関数（CSVファイルのタイプ指定の間違いを修正）
 function downloadCSV(content, fileName) {
