@@ -118,6 +118,7 @@ function getRandomCharacter(excludeNames = [], firstChoice = false) {
 // 辞書を使ってテキストを置換する関数
 function replaceText(text) {
     const dictionary = [
+        { original: '・', converted: '' },
         { original: '大谷', converted: 'おおたに' },
         { original: '一平', converted: 'いっぺい' },
         { original: '俺等', converted: 'おれら' },
