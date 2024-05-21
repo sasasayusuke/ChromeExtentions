@@ -46,10 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     for (let text of rows[i]) {
                         let selectedCharacter = getRandomCharacter(selected, firstFlg);
                         selected.push(selectedCharacter)
-                        // 配列の長さが3を超えたら、古い要素を削除
-                        if (selected.length > 3) {
-                            selected.shift();
-                        }
                         replaceText(text).split('\n').forEach(line => {
                             firstFlg = false;
                             csvForVoiceVox += `${selectedCharacter}, ${line}` + '\n'
