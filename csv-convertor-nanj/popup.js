@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let rows = [headers];  // ヘッダーを先頭に追加
                 let title = await getContentsFromActiveTab(() => document.getElementsByTagName("title")[0].innerText)
                 // URLを新しい行に設定して追加
-                let urlRow = [title, window.location.href]
+                let urlRow = [title]
                 rows.push(urlRow);
 
                 // 各行にデータを均等に配置する処理
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let csvForVoiceVox = ""
 
                 let selected = []
-                // 2行目以降のcsv各行を処理
+                // 3行目以降のcsv各行を処理
                 for (let i = 2; i < rows.length; i++) {
                     for (let text of rows[i]) {
                         let selectedCharacter = getRandomCharacter(selected, firstFlg);
@@ -124,6 +124,10 @@ function replaceText(text) {
         { original: '俺等', converted: 'おれら' },
         { original: 'わい等', converted: 'わいら' },
         { original: 'ワイ等', converted: 'わいら' },
+        { original: '手繋', converted: 'てつな' },
+        { original: 'の金', converted: 'のかね' },
+
+
     ];
 
     dictionary.forEach(entry => {
