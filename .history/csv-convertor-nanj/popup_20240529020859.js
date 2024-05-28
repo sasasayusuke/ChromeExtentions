@@ -26,12 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (let i = 0; i < lines.length; i++) {
                     if (lines[i].color == narratorsColor) {
                         rows.push([])
-                    } else {
-                        columnIndex++
-                        if (columnIndex >= headers.length) {
-                            columnIndex = 0
-                            rows.push([])
-                        }
                     }
                     rows[rows.length - 1][columnIndex] = lines[i].text
                 }
@@ -40,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let csvForCanva = rows.map(convertArrayToCSV).join('\n');
 
                 // ページのタイトルをファイル名として使用
-                downloadCSV(csvForCanva, `Canva_${title}.csv`)
+                // downloadCSV(csvForCanva, `Canva_${title}.csv`)
                 console.log('Canva Csv downloaded');
 
                 let firstFlg = true
@@ -65,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // ページのタイトルをファイル名として使用
-                downloadCSV(csvForVoiceVox, `VoiceVox_${title}.txt`)
+                // downloadCSV(csvForVoiceVox, `VoiceVox_${title}.txt`)
                 console.log('VoiceVox Csv downloaded');
 
             } catch (error) {

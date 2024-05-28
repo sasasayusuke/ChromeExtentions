@@ -22,25 +22,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 rows.push(urlRow);
 
                 // 各行にデータを均等に配置する処理
-                let columnIndex = 0
                 for (let i = 0; i < lines.length; i++) {
+                    // let columnIndex = i % headers.length;
                     if (lines[i].color == narratorsColor) {
-                        rows.push([])
-                    } else {
-                        columnIndex++
-                        if (columnIndex >= headers.length) {
-                            columnIndex = 0
-                            rows.push([])
-                        }
+                        rows.push([]);
                     }
-                    rows[rows.length - 1][columnIndex] = lines[i].text
+                    rows[rows.length - 1][columnIndex] = lines[i];
                 }
 
                 // 改行を含むデータも正しく扱えるように、各行を上記の関数で処理
                 let csvForCanva = rows.map(convertArrayToCSV).join('\n');
 
                 // ページのタイトルをファイル名として使用
-                downloadCSV(csvForCanva, `Canva_${title}.csv`)
+                // downloadCSV(csvForCanva, `Canva_${title}.csv`)
                 console.log('Canva Csv downloaded');
 
                 let firstFlg = true
@@ -65,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // ページのタイトルをファイル名として使用
-                downloadCSV(csvForVoiceVox, `VoiceVox_${title}.txt`)
+                // downloadCSV(csvForVoiceVox, `VoiceVox_${title}.txt`)
                 console.log('VoiceVox Csv downloaded');
 
             } catch (error) {
