@@ -21,19 +21,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 let urlRow = [title]
                 rows.push(urlRow);
 
-                // 各行にデータを均等に配置する処理
+                // 各行にデータを配置する処理
                 let columnIndex = 0
                 for (let i = 0; i < lines.length; i++) {
-                    if (lines[i].color == narratorsColor) {
+                    // テキストの色がナレーターの色と一致する場合、新しい列にデータを追加
+                    if (narratorsColor && lines[i].color == narratorsColor) {
+                        columnIndex = 0
                         rows.push([])
+                        rows[rows.length - 1][columnIndex] = lines[i].text
+                        rows.push([])
+                    // テキストの色がナレーターの色と一致しない場合、新しい列にデータを追加
                     } else {
                         columnIndex++
-                        if (columnIndex >= headers.length) {
+                        if (columnIndex >= headers.length - 1) {
+                            rows[rows.length - 1][columnIndex] = lines[i].text
                             columnIndex = 0
                             rows.push([])
+                        } else {
+                            rows[rows.length - 1][columnIndex] = lines[i].text
                         }
+
                     }
-                    rows[rows.length - 1][columnIndex] = lines[i].text
                 }
 
                 // 改行を含むデータも正しく扱えるように、各行を上記の関数で処理
@@ -43,24 +51,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 downloadCSV(csvForCanva, `Canva_${title}.csv`)
                 console.log('Canva Csv downloaded');
 
-                let firstFlg = true
                 let csvForVoiceVox = ""
 
                 let selected = []
-                // 3行目以降のcsv各行を処理
-                for (let i = 2; i < rows.length; i++) {
-                    for (let text of rows[i]) {
-                        let selectedCharacter = getRandomCharacter(selected, firstFlg);
-                        selected.push(selectedCharacter)
-                        // 配列の長さが3を超えたら、古い要素を削除
-                        if (selected.length > 3) {
-                            selected.shift();
+                // 1行目はヘッダーなので、2行目から処理
+                for (let i = 1; i < rows.length; i++) {
+                    for (let j = 0; j < rows[i].length; j++) {
+                        let text = rows[i][j]
+                        if (text == undefined) {
+                            continue
                         }
-                        replaceText(text).split('\n').forEach(line => {
-                            firstFlg = false;
-                            csvForVoiceVox += `${selectedCharacter}, ${line}` + '\n'
-                        })
-
+                        let narrator = getRandomCharacter("", true)
+                        let selectedCharacter = ""
+                        if (j == 0) {
+                            selectedCharacter = narrator
+                        } else {
+                            selectedCharacter = getRandomCharacter([narrator, ...selected]);
+                            selected.push(selectedCharacter)
+                            // 配列の長さが3を超えたら、古い要素を削除
+                            if (selected.length > 3) {
+                                selected.shift();
+                            }
+                        }
+                        replaceText(text).split('\n').forEach(line => csvForVoiceVox += `${selectedCharacter}, ${line}` + '\n')
                     }
                 }
 
@@ -80,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function getRandomCharacter(excludeNames = [], firstChoice = false) {
     const characters = [
         { name: '四国めたん', priority: 70, firstChoice: true },
-        { name: 'ずんだもん', priority: 60 },
+        { name: 'ずんだもん', priority: 30 },
         { name: '春日部つむぎ', priority: 50 },
         { name: '玄野武宏', priority: 50 },
         { name: '白上虎太郎', priority: 50 },
